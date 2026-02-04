@@ -49,7 +49,7 @@
             --netflix-black: #141414;
             --netflix-gray: #181818;
             --gold: #D4AF37;
-            --text-gray: #C4C4C4;  /* 4.6:1 contrast ratio - WCAG AA */
+            --text-gray: #C4C4C4;
             --white: #ffffff;
 
             /* Spacing System 8px */
@@ -64,6 +64,20 @@
 
             /* Transitions */
             --transition: 200ms cubic-bezier(0.4, 0, 0.2, 1);
+            
+            --radius-sm: 4px;
+            --radius-md: 8px;
+            --radius-lg: 12px;
+            --radius-xl: 16px;
+            
+            --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.6);
+            
+            --text-sm: 0.875rem;
+            --text-base: 1rem;
+            --text-lg: 1.125rem;
+            --text-xl: 1.25rem;
+            --text-2xl: 1.563rem;
+            --text-3xl: 1.953rem;
         }
 
         * {
@@ -162,7 +176,7 @@
             font-weight: 700; display: inline-flex; flex-direction: column;
             align-items: center; cursor: pointer;
             text-decoration: none; box-shadow: 0 2px 8px rgba(0,0,0,0.5);
-            min-height: 56px; /* Touch target WCAG AA+ */
+            min-height: 56px;
             transition: all var(--transition);
         }
         .btn-primary:hover {
@@ -187,11 +201,12 @@
         .section-title {
             font-size: clamp(24px, 5vw, 36px); font-weight: 800;
             margin-bottom: 8px; line-height: 1.1; letter-spacing: -1px;
-            color: #e5e5e5;
+            color: #e5e5e5; text-align: center;
         }
         .section-subtitle {
             font-size: 14px; color: var(--gold); font-weight: 600;
             margin-bottom: 12px; text-transform: uppercase; letter-spacing: 1.5px;
+            text-align: center;
         }
 
         /* CARROSSEL "A FERIDA" */
@@ -258,27 +273,96 @@
             display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
         }
 
-        /* TABELA COMPARATIVA */
-        .comparison-section { padding: 80px 0; background: var(--netflix-black); }
-        .comparison-cards {
-            display: flex; flex-direction: column; gap: 16px;
-            max-width: 700px; margin: 48px auto 0;
+        /* COMPARISON SECTION - NOVO LAYOUT */
+        .comparison-section {
+            background: var(--netflix-gray);
+            padding: var(--space-4xl) var(--space-xl);
         }
-        .comparison-card {
-            background: rgba(255,255,255,0.02); border-radius: 8px;
-            overflow: hidden; border: 1px solid rgba(255,255,255,0.05);
+
+        .comparison-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: var(--space-2xl);
+            margin-top: var(--space-2xl);
         }
-        .comparison-item {
-            padding: 20px; border-bottom: 1px solid rgba(255,255,255,0.05);
+
+        .comparison-column {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border-radius: var(--radius-xl);
+            padding: var(--space-2xl);
         }
-        .comparison-item:last-child { border-bottom: none; }
+
+        .comparison-column.bad {
+            border: 2px solid rgba(255, 68, 68, 0.3);
+        }
+
+        .comparison-column.good {
+            border: 2px solid rgba(0, 200, 83, 0.3);
+        }
+
         .comparison-label {
-            font-size: 11px; text-transform: uppercase; letter-spacing: 1px;
-            font-weight: 600; margin-bottom: 8px;
+            display: inline-block;
+            padding: var(--space-xs) var(--space-lg);
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            border-radius: 999px;
+            margin-bottom: var(--space-md);
         }
-        .comparison-bad { color: var(--netflix-red); }
-        .comparison-good { color: #46d369; }
-        .comparison-text { font-size: 14px; line-height: 1.5; color: #e5e5e5; }
+
+        .comparison-label.bad {
+            background: rgba(255, 68, 68, 0.2);
+            color: #FF4444;
+        }
+
+        .comparison-label.good {
+            background: rgba(0, 200, 83, 0.2);
+            color: #00C853;
+        }
+
+        .comparison-title {
+            font-size: var(--text-2xl);
+            margin-bottom: var(--space-xl);
+        }
+
+        .comparison-list {
+            list-style: none;
+        }
+
+        .comparison-item {
+            display: flex;
+            align-items: flex-start;
+            gap: var(--space-md);
+            padding: var(--space-md);
+            margin-bottom: var(--space-sm);
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: var(--radius-md);
+            font-size: var(--text-base);
+            color: var(--text-gray);
+        }
+
+        .comparison-item::before {
+            content: '✗';
+            flex-shrink: 0;
+            width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 1.125rem;
+        }
+
+        .comparison-column.bad .comparison-item::before {
+            color: #FF4444;
+        }
+
+        .comparison-column.good .comparison-item::before {
+            content: '✓';
+            color: #00C853;
+        }
 
         /* AUTORIDADE */
         .authority-section { padding: 80px 4vw; background: #0a0a0a; }
@@ -441,6 +525,108 @@
         .apply-button:hover { background: #B00710; box-shadow: 0 6px 20px rgba(229,9,20,0.6); }
         .apply-button:active { transform: scale(0.98); }
 
+        /* FAQ SECTION */
+        .faq-section {
+            padding: var(--space-4xl) var(--space-xl);
+            background: var(--netflix-black);
+        }
+
+        .faq-grid {
+            max-width: 900px;
+            margin: var(--space-2xl) auto 0;
+        }
+
+        .faq-item {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border-radius: var(--radius-lg);
+            padding: var(--space-xl);
+            margin-bottom: var(--space-md);
+            cursor: pointer;
+            transition: all var(--transition);
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .faq-item:hover {
+            background: rgba(255, 255, 255, 0.08);
+            box-shadow: var(--shadow-md);
+        }
+
+        .faq-item:active {
+            transform: scale(0.98);
+        }
+
+        .faq-question {
+            font-size: var(--text-lg);
+            font-weight: 600;
+            color: var(--white);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: var(--space-md);
+        }
+
+        .faq-icon {
+            font-size: 1.5rem;
+            font-weight: 300;
+            color: var(--netflix-red);
+            flex-shrink: 0;
+            transition: transform var(--transition);
+        }
+
+        .faq-item.active .faq-icon {
+            transform: rotate(45deg);
+        }
+
+        .faq-answer {
+            font-size: var(--text-base);
+            color: var(--text-gray);
+            margin-top: var(--space-md);
+            line-height: 1.8;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 300ms ease-out;
+        }
+
+        .faq-item.active .faq-answer {
+            max-height: 500px;
+        }
+
+        /* FOOTER */
+        .footer {
+            background: var(--netflix-gray);
+            padding: var(--space-2xl) var(--space-xl);
+            text-align: center;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .footer-content {
+            max-width: 1280px;
+            margin: 0 auto;
+        }
+
+        .footer-logo {
+            font-size: var(--text-xl);
+            font-weight: 900;
+            color: var(--white);
+            margin-bottom: var(--space-md);
+            letter-spacing: 0.05em;
+        }
+
+        .footer-text {
+            font-size: var(--text-sm);
+            color: var(--text-gray);
+            margin-bottom: var(--space-xs);
+        }
+
+        .footer-copyright {
+            font-size: 0.75rem;
+            color: #999;
+            margin-top: var(--space-md);
+            padding-top: var(--space-md);
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
         /* STICKY CTA */
         .sticky-cta {
             position: fixed;
@@ -465,12 +651,6 @@
         .sticky-cta .btn-primary {
             width: 100%;
             justify-content: center;
-        }
-
-        @media (max-width: 768px) {
-            .sticky-cta {
-                display: block;
-            }
         }
 
         /* WHATSAPP */
@@ -516,9 +696,6 @@
             .info-card { min-width: 320px; max-width: 320px; }
             .mechanism-section { padding: 100px 60px; }
             .mechanism-grid { grid-template-columns: repeat(3, 1fr); gap: 20px; }
-            .comparison-cards { flex-direction: row; max-width: 1100px; gap: 24px; }
-            .comparison-card { flex: 1; }
-            .comparison-item { min-height: 120px; }
             .authority-container { flex-direction: row; align-items: center; }
             .authority-image-wrapper { width: 45%; }
             .authority-metrics { justify-content: flex-start; }
@@ -533,6 +710,38 @@
         @media (hover: hover) {
             .info-card:hover { transform: scale(1.05); border-color: var(--netflix-red); box-shadow: 0 8px 16px rgba(0,0,0,0.6); }
             .visual-card:hover { transform: scale(1.03); }
+        }
+        
+        /* MOBILE RESPONSIVE */
+        @media (max-width: 1024px) {
+            .comparison-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .sticky-cta {
+                display: block;
+            }
+            .faq-section {
+                padding: var(--space-2xl) var(--space-md);
+            }
+
+            .faq-item {
+                padding: var(--space-lg);
+            }
+
+            .faq-question {
+                font-size: var(--text-base);
+            }
+
+            .footer {
+                padding: var(--space-xl) var(--space-md);
+            }
+
+            .footer-logo {
+                font-size: var(--text-lg);
+            }
         }
     </style>
 </head>
@@ -554,10 +763,12 @@
     <section class="hero">
         <div class="hero-video-wrapper">
             <iframe
-                src="https://player.cloudinary.com/embed/?cloud_name=dddfulsao&public_id=copy_7811C6B6-CA7D-488A-B679-1B179B5EDDBB_qygduf&autoplay=true&loop=true&muted=true&controls=false"
-                allow="autoplay; fullscreen; encrypted-media; picture-in-picture"
+                src="https://player.cloudinary.com/embed/?cloud_name=dddfulsao&public_id=copy_7811C6B6-CA7D-488A-B679-1B179B5EDDBB_qygduf&autoplay=true&loop=true&muted=true&controls=false&showLogo=false&preload=auto&playsinline=true"
+                allow="autoplay; fullscreen; encrypted-media; picture-in-picture; accelerometer; gyroscope"
                 allowfullscreen
+                playsinline
                 frameborder="0"
+                loading="eager"
             ></iframe>
         </div>
         <div class="hero-vignette"></div>
@@ -646,46 +857,36 @@
         </div>
     </section>
 
-    <!-- COMPARATIVA -->
+    <!-- COMPARISON SECTION (NÓS VS ELES) -->
     <section class="comparison-section">
         <div class="container">
-            <h2 class="section-title" data-reveal>Por que a agência "barata" custa caro</h2>
+            <h2 class="section-title" data-reveal>Agências Comuns vs. Protocolo Cinema</h2>
         </div>
-        <div class="comparison-cards container">
-            <div class="comparison-card" data-reveal>
-                <div class="comparison-item">
-                    <div class="comparison-label comparison-bad">AGÊNCIA COMUM</div>
-                    <p class="comparison-text">Artes estáticas do Canva (que o algoritmo ignora).</p>
+        <div class="container">
+            <div class="comparison-grid">
+                <div class="comparison-column bad" data-reveal>
+                    <div>
+                        <span class="comparison-label bad">AGÊNCIAS COMUNS</span>
+                        <h3 class="comparison-title">O Básico que Não Vende</h3>
+                    </div>
+                    <ul class="comparison-list">
+                        <li class="comparison-item">Artes estáticas do Canva (que o algoritmo ignora).</li>
+                        <li class="comparison-item">"Manda foto aí": Eles dão trabalho para você.</li>
+                        <li class="comparison-item">Foco em Likes: Métricas de vaidade.</li>
+                        <li class="comparison-item">Equipe de Estagiários: Aprendendo com seu dinheiro.</li>
+                    </ul>
                 </div>
-                <div class="comparison-item">
-                    <div class="comparison-label comparison-bad">AGÊNCIA COMUM</div>
-                    <p class="comparison-text">"Manda foto aí": Eles dão trabalho para você.</p>
-                </div>
-                <div class="comparison-item">
-                    <div class="comparison-label comparison-bad">AGÊNCIA COMUM</div>
-                    <p class="comparison-text">Foco em Likes: Métricas de vaidade.</p>
-                </div>
-                <div class="comparison-item">
-                    <div class="comparison-label comparison-bad">AGÊNCIA COMUM</div>
-                    <p class="comparison-text">Equipe de Estagiários: Aprendendo com seu dinheiro.</p>
-                </div>
-            </div>
-            <div class="comparison-card" data-reveal>
-                <div class="comparison-item">
-                    <div class="comparison-label comparison-good">PROTOCOLO CINEMA</div>
-                    <p class="comparison-text">Documentários Cinematográficos (Retenção máxima).</p>
-                </div>
-                <div class="comparison-item">
-                    <div class="comparison-label comparison-good">PROTOCOLO CINEMA</div>
-                    <p class="comparison-text">Captação Presencial: Nós vamos até você com a equipe completa.</p>
-                </div>
-                <div class="comparison-item">
-                    <div class="comparison-label comparison-good">PROTOCOLO CINEMA</div>
-                    <p class="comparison-text">Foco em Vendas e Autoridade: Métricas de negócio.</p>
-                </div>
-                <div class="comparison-item">
-                    <div class="comparison-label comparison-good">PROTOCOLO CINEMA</div>
-                    <p class="comparison-text">Direção de Elite: O olhar técnico de quem domina o algoritmo.</p>
+                <div class="comparison-column good" data-reveal>
+                    <div>
+                        <span class="comparison-label good">PROTOCOLO CINEMA</span>
+                        <h3 class="comparison-title">O Padrão de Elite</h3>
+                    </div>
+                    <ul class="comparison-list">
+                        <li class="comparison-item">Documentários Cinematográficos (Retenção máxima).</li>
+                        <li class="comparison-item">Captação Presencial: Nós vamos até você com a equipe completa.</li>
+                        <li class="comparison-item">Foco em Vendas e Autoridade: Métricas de negócio.</li>
+                        <li class="comparison-item">Direção de Elite: O olhar técnico de quem domina o algoritmo.</li>
+                    </ul>
                 </div>
             </div>
         </div>
@@ -699,7 +900,7 @@
                 <div class="authority-badge">100% Orgânico</div>
             </div>
             <div class="authority-content">
-                <h2 class="section-title" data-reveal>Estratégia Validada no Campo de Batalha</h2>
+                <h2 class="section-title" data-reveal style="text-align:left;">Estratégia Validada no Campo de Batalha</h2>
                 <div class="authority-metrics">
                     <div class="metric">
                         <div class="metric-number">5M</div>
@@ -886,6 +1087,62 @@
         </div>
     </section>
 
+    <!-- FAQ SECTION -->
+    <section class="faq-section">
+        <div class="container">
+            <h2 class="section-title" data-reveal>Perguntas Frequentes</h2>
+        </div>
+        <div class="container">
+            <div class="faq-grid">
+                <div class="faq-item" data-reveal>
+                    <div class="faq-question">
+                        <span>Quanto custa o serviço?</span>
+                        <span class="faq-icon">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        Trabalhamos com pacotes personalizados baseados no objetivo do seu negócio. Entre em contato para uma análise gratuita e proposta sob medida.
+                    </div>
+                </div>
+                <div class="faq-item" data-reveal>
+                    <div class="faq-question">
+                        <span>Quanto tempo demora a produção?</span>
+                        <span class="faq-icon">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        O ciclo completo (roteirização + captação + edição + entrega) leva de 7 a 14 dias úteis, dependendo da complexidade do projeto.
+                    </div>
+                </div>
+                <div class="faq-item" data-reveal>
+                    <div class="faq-question">
+                        <span>Vocês fazem tráfego pago também?</span>
+                        <span class="faq-icon">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        Sim! Além da produção cinematográfica, gerenciamos campanhas de tráfego pago (Meta Ads, Google Ads, TikTok Ads) para garantir que seu conteúdo chegue no público certo.
+                    </div>
+                </div>
+                <div class="faq-item" data-reveal>
+                    <div class="faq-question">
+                        <span>Atendem apenas em Cabo Frio?</span>
+                        <span class="faq-icon">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        Nossa base é em Cabo Frio, mas atendemos toda a Região dos Lagos e, para projetos estratégicos, viajamos para qualquer lugar do Brasil.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-logo">PROTOCOLO CINEMA</div>
+            <p class="footer-text">Cabo Frio, RJ | Brasil</p>
+            <p class="footer-copyright">© 2026 Agência Hype. Todos os direitos reservados.</p>
+        </div>
+    </footer>
+
     <!-- MOBILE STICKY CTA -->
     <div class="sticky-cta">
         <a href="https://wa.me/5521999999999?text=Olá!%20Quero%20agendar%20minha%20captação" 
@@ -1000,10 +1257,28 @@
         if (heroSection && stickyCta) {
             stickyObserver.observe(heroSection);
         }
+
+        // FAQ ACCORDION
+        document.querySelectorAll('.faq-item').forEach(item => {
+            item.addEventListener('click', function() {
+                const isActive = this.classList.contains('active');
+                
+                // Fecha todos os FAQs
+                document.querySelectorAll('.faq-item').forEach(i => {
+                    i.classList.remove('active');
+                });
+                
+                // Abre o clicado se não estava aberto
+                if (!isActive) {
+                    this.classList.add('active');
+                }
+            });
+        });
     </script>
 
 </body>
 </html>
+
 
 
 
