@@ -345,7 +345,666 @@
             display: flex; align-items: center; justify-content: center;
         }
         .feature-icon-wrapper svg { width: 18px; height: 18px; fill: var(--netflix-red); }
-        .feature-
+        .feature-text { flex: 1; }
+        .feature-title { font-size: 16px; font-weight: 700; margin-bottom: 4px; }
+        .feature-description { font-size: 13px; color: var(--text-gray); line-height: 1.5; }
+
+        /* STORIES */
+        .stories-section { padding: 80px 0; background: #0a0a0a; }
+        .stories-container {
+            display: flex; gap: 12px; overflow-x: auto; padding: 20px 4vw;
+            scrollbar-width: none; -ms-overflow-style: none;
+        }
+        .stories-container::-webkit-scrollbar { display: none; }
+        .story-card {
+            min-width: 140px; max-width: 140px; height: 250px;
+            border-radius: 8px; overflow: hidden; position: relative;
+            flex-shrink: 0; cursor: pointer; border: 2px solid transparent;
+            transition: all 0.3s;
+        }
+        .story-card.active { border-color: var(--netflix-red); }
+        .story-card:active { transform: scale(0.96); }
+        .story-video { width: 100%; height: 100%; object-fit: cover; }
+        .story-overlay {
+            position: absolute; bottom: 0; left: 0; width: 100%;
+            background: linear-gradient(to top, rgba(0,0,0,0.9), transparent);
+            padding: 12px;
+        }
+        .story-client-name { font-size: 12px; font-weight: 700; margin-bottom: 2px; }
+        .story-metric { font-size: 10px; color: var(--gold); font-weight: 600; }
+
+        /* FILTRO */
+        .filter-section {
+            padding: 60px 4vw; background: #1a1a1a;
+            border-top: 2px solid var(--netflix-red);
+            border-bottom: 2px solid var(--netflix-red);
+        }
+        .filter-container { max-width: 700px; margin: 0 auto; }
+        .filter-title { font-size: 24px; font-weight: 700; margin-bottom: 24px; letter-spacing: -0.5px; }
+        .filter-list { display: flex; flex-direction: column; gap: 16px; }
+        .filter-item {
+            display: flex; gap: 12px; align-items: flex-start;
+            font-size: 15px; line-height: 1.6; color: #e5e5e5;
+        }
+        .filter-icon-wrapper {
+            width: 24px; height: 24px; flex-shrink: 0;
+            display: flex; align-items: center; justify-content: center;
+        }
+        .filter-icon-wrapper svg { width: 20px; height: 20px; fill: var(--netflix-red); }
+        .filter-footer { margin-top: 32px; font-size: 15px; color: var(--text-gray); font-weight: 500; }
+
+        /* MEMBERSHIP CARD */
+        .membership-section { padding: 100px 4vw; background: var(--netflix-black); display: flex; justify-content: center; }
+        .black-card {
+            background: linear-gradient(135deg, #1a1a1a, #000);
+            border: 1px solid #333; border-radius: 16px; padding: 48px 32px;
+            max-width: 500px; width: 100%; position: relative;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.7); overflow: hidden;
+        }
+        .card-shine {
+            position: absolute; inset: -100%; width: 300%; height: 300%;
+            background: linear-gradient(45deg, transparent 40%, rgba(255,255,255,0.03) 50%, transparent 60%);
+            animation: shine 8s infinite linear;
+        }
+        @keyframes shine {
+            0% { transform: translate(-50%, -50%) rotate(0deg); }
+            100% { transform: translate(50%, 50%) rotate(360deg); }
+        }
+        .card-header {
+            display: flex; justify-content: space-between; align-items: center;
+            margin-bottom: 40px; position: relative; z-index: 2;
+        }
+        .card-logo { color: var(--gold); font-weight: 900; font-size: 14px; letter-spacing: -0.5px; }
+        .card-chip {
+            width: 40px; height: 30px;
+            background: linear-gradient(135deg, var(--gold), #8B7428);
+            border-radius: 4px; box-shadow: 0 2px 8px rgba(0,0,0,0.5);
+        }
+        .card-body { position: relative; z-index: 2; }
+        .card-body h2 { font-size: 28px; font-weight: 800; margin-bottom: 16px; letter-spacing: -0.5px; }
+        .card-body p { font-size: 14px; color: #999; margin-bottom: 32px; line-height: 1.7; }
+        .requirements-list { margin-bottom: 32px; border-top: 1px solid #333; padding-top: 24px; }
+        .requirement-item {
+            display: flex; justify-content: space-between; font-size: 12px;
+            margin-bottom: 12px; color: #777;
+        }
+        .requirement-value { color: var(--white); font-weight: 600; }
+        .requirement-value.highlight { color: var(--netflix-red); }
+        .apply-button {
+            width: 100%; background: var(--netflix-red); color: var(--white);
+            border: none; padding: 18px; border-radius: 4px; font-weight: 700;
+            font-size: 16px; cursor: pointer; text-transform: uppercase;
+            letter-spacing: 1.5px; transition: all 0.3s;
+            box-shadow: 0 4px 12px rgba(229,9,20,0.4);
+            min-height: 56px;
+        }
+        .apply-button:hover { background: #B00710; box-shadow: 0 6px 20px rgba(229,9,20,0.6); }
+        .apply-button:active { transform: scale(0.98); }
+
+        /* STICKY CTA */
+        .sticky-cta {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: var(--space-md);
+            background: rgba(20, 20, 20, 0.98);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            box-shadow: 0 -4px 24px rgba(0, 0, 0, 0.8);
+            z-index: 999;
+            transform: translateY(100%);
+            transition: transform 300ms cubic-bezier(0.4, 0, 0.2, 1);
+            display: none;
+        }
+
+        .sticky-cta.visible {
+            transform: translateY(0);
+        }
+
+        .sticky-cta .btn-primary {
+            width: 100%;
+            justify-content: center;
+        }
+
+        @media (max-width: 768px) {
+            .sticky-cta {
+                display: block;
+            }
+        }
+
+        /* WHATSAPP */
+        .whatsapp-float {
+            position: fixed; bottom: 30px; right: 20px; width: 60px; height: 60px;
+            background: linear-gradient(135deg, #25D366, #1ea952);
+            border-radius: 50%; display: flex; align-items: center; justify-content: center;
+            text-decoration: none; box-shadow: 0 4px 16px rgba(37,211,102,0.4);
+            z-index: 99; transform: scale(0); transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        .whatsapp-float.visible { transform: scale(1); }
+        .whatsapp-float:active { transform: scale(0.92); }
+        .whatsapp-float svg { width: 32px; height: 32px; fill: white; }
+
+        /* SCROLL REVEAL ANIMATIONS */
+        [data-reveal] {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 600ms cubic-bezier(0.4, 0, 0.2, 1),
+                        transform 600ms cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        [data-reveal].revealed {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .stagger-1 { transition-delay: 100ms; }
+        .stagger-2 { transition-delay: 200ms; }
+        .stagger-3 { transition-delay: 300ms; }
+        .stagger-4 { transition-delay: 400ms; }
+
+        /* RESPONSIVE */
+        @media (min-width: 768px) {
+            .hero { height: 92vh; }
+            .hero-content { padding: 0 60px 12vh; }
+            .hero-title { font-size: 80px; }
+            .hero-description { font-size: 18px; max-width: 560px; }
+            .btn-primary { flex-direction: row; }
+            .btn-microcopy { margin-top: 0; margin-left: 8px; }
+            .problem-section { padding: 80px 0 60px; }
+            .carousel { padding: 0 60px 24px; gap: 16px; }
+            .info-card { min-width: 320px; max-width: 320px; }
+            .mechanism-section { padding: 100px 60px; }
+            .mechanism-grid { grid-template-columns: repeat(3, 1fr); gap: 20px; }
+            .comparison-cards { flex-direction: row; max-width: 1100px; gap: 24px; }
+            .comparison-card { flex: 1; }
+            .comparison-item { min-height: 120px; }
+            .authority-container { flex-direction: row; align-items: center; }
+            .authority-image-wrapper { width: 45%; }
+            .authority-metrics { justify-content: flex-start; }
+            .product-features { grid-template-columns: 1fr 1fr; }
+            .stories-container { justify-content: center; gap: 16px; }
+            .membership-section { padding: 120px 60px; }
+        }
+        @media (min-width: 1200px) {
+            .hero-title { font-size: 96px; }
+            .info-card { min-width: 360px; max-width: 360px; }
+        }
+        @media (hover: hover) {
+            .info-card:hover { transform: scale(1.05); border-color: var(--netflix-red); box-shadow: 0 8px 16px rgba(0,0,0,0.6); }
+            .visual-card:hover { transform: scale(1.03); }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- GTM noscript -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-XXXXXXX"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
+    <!-- SCROLL PROGRESS -->
+    <div class="scroll-progress" id="scrollProgress"></div>
+
+    <!-- HEADER -->
+    <header class="header" id="header">
+        <div class="logo">PROTOCOLO CINEMA</div>
+    </header>
+
+    <!-- HERO -->
+    <section class="hero">
+        <div class="hero-video-wrapper">
+            <iframe
+                src="https://player.cloudinary.com/embed/?cloud_name=dddfulsao&public_id=copy_7811C6B6-CA7D-488A-B679-1B179B5EDDBB_qygduf&autoplay=true&loop=true&muted=true&controls=false"
+                allow="autoplay; fullscreen; encrypted-media; picture-in-picture"
+                allowfullscreen
+                frameborder="0"
+            ></iframe>
+        </div>
+        <div class="hero-vignette"></div>
+        <div class="hero-content">
+            <div class="hero-metadata" data-reveal>
+                <span>CABO FRIO</span>
+                <span>PRODUTORA CINEMATOGRÁFICA</span>
+            </div>
+            <h1 class="hero-title" data-reveal>Transforme seu Negócio na Série Mais Desejada.</h1>
+            <p class="hero-description" data-reveal>A única produtora de Cabo Frio que une <strong>Cinema</strong> com <strong>Estratégia de Vendas</strong>. Pare de fazer "postzinho" e comece a lucrar com sua imagem.</p>
+            <div class="hero-buttons" data-reveal>
+                <a href="https://wa.me/5521999999999?text=Olá!%20Quero%20minha%20empresa%20no%20hype" class="btn-primary" onclick="trackEvent('Hero CTA')">
+                    <span>QUERO MINHA EMPRESA NO HYPE</span>
+                    <span class="btn-microcopy">Aplicação exclusiva para negócios locais</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- A FERIDA (CARROSSEL) -->
+    <section class="problem-section">
+        <div class="container">
+            <h2 class="section-title" data-reveal>Em 2026, a invisibilidade é a falência silenciosa.</h2>
+        </div>
+        <div class="carousel">
+            <div class="info-card" data-reveal>
+                <div class="card-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+                </div>
+                <h3 class="card-title">O Fim do Panfleto Digital</h3>
+                <p class="card-description">Posts estáticos e artes do Canva funcionavam em 2020. Em 2026, quem não domina a narrativa, é ignorado pelo algoritmo.</p>
+            </div>
+            <div class="info-card" data-reveal>
+                <div class="card-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M16 6l2.29 2.29-4.88 4.88-4-4L2 16.59 3.41 18l6-6 4 4 6.3-6.29L22 12V6z"/></svg>
+                </div>
+                <h3 class="card-title">A Regra do Luxo</h3>
+                <p class="card-description">Quem parece barato, cobra barato. A qualidade da sua imagem define o teto do seu preço no mercado.</p>
+            </div>
+            <div class="info-card" data-reveal>
+                <div class="card-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13.5.67s.74 2.65.74 4.8c0 2.06-1.35 3.73-3.41 3.73-2.07 0-3.63-1.67-3.63-3.73l.03-.36C5.21 7.51 4 10.62 4 14c0 4.42 3.58 8 8 8s8-3.58 8-8C20 8.61 17.41 3.8 13.5.67zM11.71 19c-1.78 0-3.22-1.4-3.22-3.14 0-1.62 1.05-2.76 2.81-3.12 1.77-.36 3.6-1.21 4.62-2.58.39 1.29.59 2.65.59 4.04 0 2.65-2.15 4.8-4.8 4.8z"/></svg>
+                </div>
+                <h3 class="card-title">O Novo Jogo</h3>
+                <p class="card-description">Você não precisa de uma agência. Precisa de uma Banca de Estrategistas que coloque dinheiro no bolso através da autoridade.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- MECANISMO (CARDS VISUAIS) -->
+    <section class="mechanism-section">
+        <div class="container">
+            <p class="section-subtitle" data-reveal>Como transformamos desconhecidos em marcas de elite</p>
+            <h2 class="section-title" data-reveal>O Mecanismo por trás do Hype</h2>
+        </div>
+        <div class="container">
+            <div class="mechanism-grid">
+                <div class="visual-card" data-reveal>
+                    <img src="https://images.unsplash.com/photo-1542744173-8e7e53415bb0?w=800&q=80" alt="Roteirização" class="visual-card-img" loading="lazy">
+                    <div class="visual-card-overlay"></div>
+                    <div class="visual-card-content">
+                        <div class="visual-card-tag">ESTRATÉGIA</div>
+                        <h3 class="visual-card-title">Roteirização de Elite</h3>
+                        <p class="visual-card-desc">Criamos a narrativa exata que ativa o desejo de compra no cérebro do seu cliente.</p>
+                    </div>
+                </div>
+                <div class="visual-card" data-reveal>
+                    <img src="https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?w=800&q=80" alt="Produção" class="visual-card-img" loading="lazy">
+                    <div class="visual-card-overlay"></div>
+                    <div class="visual-card-content">
+                        <div class="visual-card-tag">CINEMA</div>
+                        <h3 class="visual-card-title">Produção Cinematográfica</h3>
+                        <p class="visual-card-desc">Luz, áudio e direção de cinema para que você pareça "caro" antes mesmo de falar o preço.</p>
+                    </div>
+                </div>
+                <div class="visual-card" data-reveal>
+                    <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&q=80" alt="Distribuição" class="visual-card-img" loading="lazy">
+                    <div class="visual-card-overlay"></div>
+                    <div class="visual-card-content">
+                        <div class="visual-card-tag">GROWTH</div>
+                        <h3 class="visual-card-title">Distribuição Cirúrgica</h3>
+                        <p class="visual-card-desc">O tráfego pago entrega seu vídeo para quem tem dinheiro para comprar.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- COMPARATIVA -->
+    <section class="comparison-section">
+        <div class="container">
+            <h2 class="section-title" data-reveal>Por que a agência "barata" custa caro</h2>
+        </div>
+        <div class="comparison-cards container">
+            <div class="comparison-card" data-reveal>
+                <div class="comparison-item">
+                    <div class="comparison-label comparison-bad">AGÊNCIA COMUM</div>
+                    <p class="comparison-text">Artes estáticas do Canva (que o algoritmo ignora).</p>
+                </div>
+                <div class="comparison-item">
+                    <div class="comparison-label comparison-bad">AGÊNCIA COMUM</div>
+                    <p class="comparison-text">"Manda foto aí": Eles dão trabalho para você.</p>
+                </div>
+                <div class="comparison-item">
+                    <div class="comparison-label comparison-bad">AGÊNCIA COMUM</div>
+                    <p class="comparison-text">Foco em Likes: Métricas de vaidade.</p>
+                </div>
+                <div class="comparison-item">
+                    <div class="comparison-label comparison-bad">AGÊNCIA COMUM</div>
+                    <p class="comparison-text">Equipe de Estagiários: Aprendendo com seu dinheiro.</p>
+                </div>
+            </div>
+            <div class="comparison-card" data-reveal>
+                <div class="comparison-item">
+                    <div class="comparison-label comparison-good">PROTOCOLO CINEMA</div>
+                    <p class="comparison-text">Documentários Cinematográficos (Retenção máxima).</p>
+                </div>
+                <div class="comparison-item">
+                    <div class="comparison-label comparison-good">PROTOCOLO CINEMA</div>
+                    <p class="comparison-text">Captação Presencial: Nós vamos até você com a equipe completa.</p>
+                </div>
+                <div class="comparison-item">
+                    <div class="comparison-label comparison-good">PROTOCOLO CINEMA</div>
+                    <p class="comparison-text">Foco em Vendas e Autoridade: Métricas de negócio.</p>
+                </div>
+                <div class="comparison-item">
+                    <div class="comparison-label comparison-good">PROTOCOLO CINEMA</div>
+                    <p class="comparison-text">Direção de Elite: O olhar técnico de quem domina o algoritmo.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- AUTORIDADE -->
+    <section class="authority-section">
+        <div class="authority-container">
+            <div class="authority-image-wrapper">
+                <img src="https://images.unsplash.com/photo-1557804506-669a67965ba0?w=800&q=80" alt="Equipe" class="authority-image" loading="lazy">
+                <div class="authority-badge">100% Orgânico</div>
+            </div>
+            <div class="authority-content">
+                <h2 class="section-title" data-reveal>Estratégia Validada no Campo de Batalha</h2>
+                <div class="authority-metrics">
+                    <div class="metric">
+                        <div class="metric-number">5M</div>
+                        <div class="metric-label">Total Views</div>
+                    </div>
+                    <div class="metric">
+                        <div class="metric-number">2M</div>
+                        <div class="metric-label">Instagram</div>
+                    </div>
+                    <div class="metric">
+                        <div class="metric-number">3M</div>
+                        <div class="metric-label">TikTok</div>
+                    </div>
+                </div>
+                <p class="authority-text">"Muitos te prometem viralização. Nós provamos."</p>
+                <p class="authority-text">Apenas nos últimos 28 dias, nossa estratégia gerou <strong>5 MILHÕES de visualizações orgânicas</strong> (2M no Instagram + 3M no TikTok) para nossos ativos. <strong>Sem gastar um único real em tráfego.</strong></p>
+                <p class="authority-text">Não vendemos palpites. Vendemos um modelo de negócio validado. Enquanto outros testam com o seu dinheiro, nós aplicamos a <strong>MÁQUINA</strong> técnica e estratégica que já funciona.</p>
+                <p class="authority-highlight">"Nós não vendemos apenas vídeos. Nós vendemos a percepção de que você é o melhor de Cabo Frio."</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- PRODUTO -->
+    <section class="product-section">
+        <div class="container" style="text-align: center;">
+            <h2 class="section-title" data-reveal>O Produto</h2>
+        </div>
+        <div class="product-card">
+            <div class="product-header">
+                <div class="product-icon-wrapper">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" style="width:32px;height:32px;fill:white;"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+                </div>
+                <h3 class="product-name">PROTOCOLO CINEMA</h3>
+                <p class="product-tagline">O departamento de marketing de elite, por uma fração do custo.</p>
+            </div>
+            <div class="product-features">
+                <div class="feature-item">
+                    <div class="feature-icon-wrapper">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 10.5V7c0-.55-.45-1-1-1H4c-.55 0-1 .45-1 1v10c0 .55.45 1 1 1h12c.55 0 1-.45 1-1v-3.5l4 4v-11l-4 4z"/></svg>
+                    </div>
+                    <div class="feature-text">
+                        <div class="feature-title">4 Produções Cinematográficas</div>
+                        <div class="feature-description">Ativos digitais que trabalham 24h por dia vendendo sua imagem.</div>
+                    </div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon-wrapper">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 4V3c0-.55-.45-1-1-1H5c-.55 0-1 .45-1 1v4c0 .55.45 1 1 1h12c.55 0 1-.45 1-1V6h1v4H9v11c0 .55.45 1 1 1h2c.55 0 1-.45 1-1v-9h8V4h-3z"/></svg>
+                    </div>
+                    <div class="feature-text">
+                        <div class="feature-title">Edição Viral & Color Grading</div>
+                        <div class="feature-description">Tratamento de imagem de cinema. Seu concorrente vai parecer amador.</div>
+                    </div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon-wrapper">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M16 6l2.29 2.29-4.88 4.88-4-4L2 16.59 3.41 18l6-6 4 4 6.3-6.29L22 12V6z"/></svg>
+                    </div>
+                    <div class="feature-text">
+                        <div class="feature-title">Gestão de Tráfego Pago</div>
+                        <div class="feature-description">Garantimos que seu vídeo apareça para o cliente certo.</div>
+                    </div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon-wrapper">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>
+                    </div>
+                    <div class="feature-text">
+                        <div class="feature-title">Direção de Posicionamento</div>
+                        <div class="feature-description">Dizemos exatamente o que você precisa falar para vender mais caro.</div>
+                    </div>
+                </div>
+            </div>
+            <a href="https://wa.me/5521999999999?text=Quero%20verificar%20disponibilidade" class="btn-primary" onclick="trackEvent('Produto CTA')" style="width: 100%; justify-content: center;">
+                <span>VERIFICAR DISPONIBILIDADE DE AGENDA</span>
+            </a>
+        </div>
+    </section>
+
+    <!-- SOCIAL PROOF (STORIES) -->
+    <section class="stories-section">
+        <div class="container">
+            <h2 class="section-title" data-reveal>Resultados Reais</h2>
+        </div>
+        <div class="stories-container">
+            <div class="story-card" onclick="toggleStory(this)">
+                <video class="story-video" muted loop playsinline poster="https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?w=400&q=80">
+                    <source src="https://cdn.coverr.co/videos/coverr-portrait-of-a-confident-businessman-8753/1080p.mp4" type="video/mp4">
+                </video>
+                <div class="story-overlay">
+                    <div class="story-client-name">Dr. Carlos Silva</div>
+                    <div class="story-metric">+40% Procura</div>
+                </div>
+            </div>
+            <div class="story-card" onclick="toggleStory(this)">
+                <video class="story-video" muted loop playsinline poster="https://images.unsplash.com/photo-1580489944761-15a19d654956?w=400&q=80">
+                    <source src="https://cdn.coverr.co/videos/coverr-woman-working-on-laptop-5043/1080p.mp4" type="video/mp4">
+                </video>
+                <div class="story-overlay">
+                    <div class="story-client-name">Mariana Costa</div>
+                    <div class="story-metric">Autoridade Local</div>
+                </div>
+            </div>
+            <div class="story-card" onclick="toggleStory(this)">
+                <video class="story-video" muted loop playsinline poster="https://images.unsplash.com/photo-1542744173-8e7e53415bb0?w=400&q=80">
+                    <source src="https://cdn.coverr.co/videos/coverr-business-meeting-6433/1080p.mp4" type="video/mp4">
+                </video>
+                <div class="story-overlay">
+                    <div class="story-client-name">Portfólio</div>
+                    <div class="story-metric">Produção High-End</div>
+                </div>
+            </div>
+            <div class="story-card" onclick="toggleStory(this)">
+                <video class="story-video" muted loop playsinline poster="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=400&q=80">
+                    <source src="https://cdn.coverr.co/videos/coverr-working-in-the-office-4484/1080p.mp4" type="video/mp4">
+                </video>
+                <div class="story-overlay">
+                    <div class="story-client-name">Campanha Viral</div>
+                    <div class="story-metric">3M+ Views</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FILTRO -->
+    <section class="filter-section">
+        <div class="filter-container">
+            <h2 class="filter-title" data-reveal>Para quem NÃO É o Protocolo Cinema</h2>
+            <div class="filter-list">
+                <div class="filter-item">
+                    <div class="filter-icon-wrapper">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+                    </div>
+                    <span>Para quem quer "artezinha de bom dia" ou volume de posts sem qualidade.</span>
+                </div>
+                <div class="filter-item">
+                    <div class="filter-icon-wrapper">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+                    </div>
+                    <span>Para quem acha que marketing é custo, e não a alma do negócio.</span>
+                </div>
+                <div class="filter-item">
+                    <div class="filter-icon-wrapper">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+                    </div>
+                    <span>Para quem não está disposto a aparecer e sustentar a autoridade que vamos criar.</span>
+                </div>
+            </div>
+            <p class="filter-footer">Isso é um jogo para adultos que querem liderar o mercado.</p>
+        </div>
+    </section>
+
+    <!-- MEMBERSHIP CARD -->
+    <section class="membership-section">
+        <div class="black-card">
+            <div class="card-shine"></div>
+            <div class="card-header">
+                <div class="card-logo">PROTOCOLO CINEMA</div>
+                <div class="card-chip"></div>
+            </div>
+            <div class="card-body">
+                <h2>Capacidade Limitada</h2>
+                <p>Não somos uma fábrica de massa. Atendemos no máximo 4 parceiros por ciclo para garantir a qualidade cinematográfica.</p>
+
+                <div class="requirements-list">
+                    <div class="requirement-item">
+                        <span>VAGAS DISPONÍVEIS</span>
+                        <span class="requirement-value highlight">04 / MÊS</span>
+                    </div>
+                    <div class="requirement-item">
+                        <span>FATURAMENTO MÍNIMO</span>
+                        <span class="requirement-value">R$ 30k+</span>
+                    </div>
+                    <div class="requirement-item">
+                        <span>PERFIL IDEAL</span>
+                        <span class="requirement-value">Médicos, Clínicas & Premium</span>
+                    </div>
+                </div>
+
+                <button class="apply-button" onclick="window.location.href='https://wa.me/5521999999999?text=Quero%20aplicar%20ao%20Protocolo%20Cinema'">
+                    Aplicar para Membership
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- MOBILE STICKY CTA -->
+    <div class="sticky-cta">
+        <a href="https://wa.me/5521999999999?text=Olá!%20Quero%20agendar%20minha%20captação" 
+           class="btn-primary" 
+           onclick="trackEvent('Sticky CTA')">
+            <span>AGENDAR CAPTAÇÃO AGORA</span>
+        </a>
+    </div>
+
+    <!-- WHATSAPP FLOAT -->
+    <a href="https://wa.me/5521999999999" class="whatsapp-float" id="waFloat" onclick="trackEvent('WhatsApp Float')">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+    </a>
+
+    <script>
+        // SCROLL TRACKING
+        window.addEventListener('scroll', () => {
+            const header = document.getElementById('header');
+            if(window.scrollY > 50) header.classList.add('scrolled');
+            else header.classList.remove('scrolled');
+
+            const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrolled = (winScroll / height) * 100;
+            document.getElementById("scrollProgress").style.width = scrolled + '%';
+
+            if(scrolled > 10) document.getElementById('waFloat').classList.add('visible');
+        }, { passive: true });
+
+        // VIDEO AUTOPLAY
+        const videoObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if(entry.isIntersecting) entry.target.play().catch(() => {});
+                else entry.target.pause();
+            });
+        }, { threshold: 0.5 });
+        document.querySelectorAll('video').forEach(video => videoObserver.observe(video));
+
+        // STORY UNMUTE
+        function toggleStory(card) {
+            const video = card.querySelector('video');
+            document.querySelectorAll('.story-card').forEach(c => c.classList.remove('active'));
+            video.muted = !video.muted;
+            if(!video.muted) card.classList.add('active');
+        }
+
+        // TRACKING
+        function trackEvent(eventName) {
+            console.log('Event:', eventName);
+            if(typeof gtag !== 'undefined') {
+                gtag('event', 'click', { 'event_category': 'CTA', 'event_label': eventName });
+            }
+            if(typeof fbq !== 'undefined') {
+                fbq('track', 'Lead', { content_name: eventName, source: 'website' });
+            }
+        }
+
+        // SCROLL DEPTH
+        const scrollDepths = {25: false, 50: false, 75: false, 100: false};
+        window.addEventListener('scroll', () => {
+            const scrollPercent = Math.round((window.pageYOffset / (document.documentElement.scrollHeight - window.innerHeight)) * 100);
+            Object.keys(scrollDepths).forEach(depth => {
+                if(scrollPercent >= depth && !scrollDepths[depth]) {
+                    scrollDepths[depth] = true;
+                    console.log('Scroll Depth:', depth + '%');
+                    if(typeof fbq !== 'undefined') fbq('trackCustom', 'ScrollDepth', { depth: depth + '%' });
+                }
+            });
+        }, { passive: true });
+
+        // TIME ON PAGE
+        setTimeout(() => {
+            console.log('Time: 1min');
+            if(typeof fbq !== 'undefined') fbq('trackCustom', 'TimeOnPage', { time: '1min' });
+        }, 60000);
+        setTimeout(() => {
+            console.log('Time: 3min');
+            if(typeof fbq !== 'undefined') fbq('trackCustom', 'TimeOnPage', { time: '3min' });
+        }, 180000);
+
+        // SCROLL REVEAL com IntersectionObserver
+        const revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('revealed');
+                    revealObserver.unobserve(entry.target);
+                }
+            });
+        }, {
+            threshold: 0.15,
+            rootMargin: '0px 0px -50px 0px'
+        });
+
+        document.querySelectorAll('[data-reveal]').forEach(el => {
+            revealObserver.observe(el);
+        });
+
+        // MOBILE STICKY CTA
+        const stickyCta = document.querySelector('.sticky-cta');
+        const heroSection = document.querySelector('.hero');
+
+        const stickyObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (!entry.isIntersecting && window.innerWidth <= 768) {
+                    stickyCta.classList.add('visible');
+                } else {
+                    stickyCta.classList.remove('visible');
+                }
+            });
+        }, { threshold: 0 });
+
+        if (heroSection && stickyCta) {
+            stickyObserver.observe(heroSection);
+        }
+    </script>
+
+</body>
+</html>
+
 
 
 
