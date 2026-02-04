@@ -133,7 +133,9 @@
             overflow: hidden;
         }
 
-        .hero-video-wrapper iframe {
+        /* Desktop: iframe Cloudinary */
+        .hero-video-desktop {
+            display: block;
             position: absolute;
             top: 50%;
             left: 50%;
@@ -145,6 +147,28 @@
             pointer-events: none;
             border: none;
         }
+
+        /* Mobile: vídeo nativo */
+        .hero-video-mobile {
+            display: none;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* Show video nativo no mobile */
+        @media (max-width: 768px) {
+            .hero-video-desktop {
+                display: none;
+            }
+            .hero-video-mobile {
+                display: block;
+            }
+        }
+
         .hero-vignette {
             position: absolute; inset: 0; z-index: 1;
             background: 
@@ -762,14 +786,18 @@
     <!-- HERO -->
     <section class="hero">
         <div class="hero-video-wrapper">
-            <iframe
-                src="https://player.cloudinary.com/embed/?cloud_name=dddfulsao&public_id=copy_7811C6B6-CA7D-488A-B679-1B179B5EDDBB_qygduf&autoplay=true&loop=true&muted=true&controls=false&showLogo=false&preload=auto&playsinline=true"
-                allow="autoplay; fullscreen; encrypted-media; picture-in-picture; accelerometer; gyroscope"
+            <!-- Desktop: Cloudinary iframe -->
+            <iframe class="hero-video-desktop"
+                src="https://player.cloudinary.com/embed/?cloud_name=dddfulsao&public_id=copy_7811C6B6-CA7D-488A-B679-1B179B5EDDBB_qygduf&autoplay=true&loop=true&muted=true&controls=false&showLogo=false"
+                allow="autoplay; fullscreen; encrypted-media; picture-in-picture"
                 allowfullscreen
-                playsinline
                 frameborder="0"
-                loading="eager"
             ></iframe>
+            
+            <!-- Mobile: Vídeo nativo -->
+            <video class="hero-video-mobile" autoplay muted loop playsinline preload="auto">
+                <source src="https://res.cloudinary.com/dddfulsao/video/upload/copy_7811C6B6-CA7D-488A-B679-1B179B5EDDBB_qygduf.mp4" type="video/mp4">
+            </video>
         </div>
         <div class="hero-vignette"></div>
         <div class="hero-content">
@@ -1274,10 +1302,26 @@
                 }
             });
         });
+
+        // FORÇAR PLAY DO VÍDEO MOBILE
+        document.addEventListener('DOMContentLoaded', function() {
+            const mobileVideo = document.querySelector('.hero-video-mobile');
+            if (mobileVideo && window.innerWidth <= 768) {
+                // Tenta dar play imediatamente
+                mobileVideo.play().catch(() => {
+                    // Se falhar, espera interação do usuário
+                    document.body.addEventListener('touchstart', function playVideo() {
+                        mobileVideo.play();
+                        document.body.removeEventListener('touchstart', playVideo);
+                    }, { once: true });
+                });
+            }
+        });
     </script>
 
 </body>
 </html>
+
 
 
 
