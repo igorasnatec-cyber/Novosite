@@ -1008,7 +1008,7 @@
         </div>
     </section>
 
-   <!-- SOCIAL PROOF (STORIES) -->
+ <!-- SOCIAL PROOF (STORIES) -->
 <section class="stories-section">
     <div class="container">
         <h2 class="section-title" data-reveal>Resultados Reais</h2>
@@ -1023,6 +1023,7 @@
                 <div class="story-client-name">Dra. Barbara Paixão</div>
                 <div class="story-metric">↑ Autoridade Médica</div>
             </div>
+            <div class="story-tap-hint">▶ toque para ouvir</div>
         </div>
 
         <div class="story-card" data-story>
@@ -1033,6 +1034,7 @@
                 <div class="story-client-name">Débora · Óticas Vezo</div>
                 <div class="story-metric">↑ Vendas Presenciais</div>
             </div>
+            <div class="story-tap-hint">▶ toque para ouvir</div>
         </div>
 
         <div class="story-card" data-story>
@@ -1043,10 +1045,23 @@
                 <div class="story-client-name">Moda Feminina</div>
                 <div class="story-metric">↑ E-commerce</div>
             </div>
+            <div class="story-tap-hint">▶ toque para ouvir</div>
         </div>
 
     </div>
 </section>
+
+<!-- MODAL FULLSCREEN -->
+<div class="story-modal" id="storyModal">
+    <div class="story-modal-backdrop" onclick="closeStoryModal()"></div>
+    <div class="story-modal-content">
+        <button class="story-modal-close" onclick="closeStoryModal()">✕</button>
+        <video class="story-modal-video" id="storyModalVideo" controls playsinline loop>
+            Seu navegador não suporta vídeo.
+        </video>
+    </div>
+</div>
+
 
     <!-- FILTRO -->
     <section class="filter-section">
